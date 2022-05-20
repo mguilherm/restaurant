@@ -1,5 +1,6 @@
 <template>
   <div class="items-list">
+  <LoadingIcon v-if="isLoading" />
     <EachItem v-for="item in itemsList" :key="item.id" :item="item" />
   </div>
 </template>
@@ -7,15 +8,18 @@
 <script>
 import axios from "axios";
 import EachItem from "./EachItem";
+import LoadingIcon from "./LoadingIcon"
 
 export default {
   name: "ItemsList",
   components: {
     EachItem,
+    LoadingIcon,
   },
   data() {
     return {
       itemsList: [],
+      isLoading: false
     };
   },
   created() {},
@@ -24,13 +28,20 @@ export default {
       get() {
         return this.$store.state.selectedCategory;
       },
+      
     },
   },
   methods: {
     getItemsList() {
-      axios.get(`http://localhost:3000/${this.selectedCategory}`).then((response) => {
-        this.itemsList = response.data;
-      });
+      this.isLoading = true;
+      this.itemsList = []
+      setInterval(() => {
+        axios.get(`http://localhost:3000/${this.selectedCategory}`).then((response) => {
+          this.itemsList = response.data;
+          this.isLoading = false;
+        });
+      }, 2000)
+     
     },
   },
   watch: {
@@ -45,6 +56,7 @@ export default {
 .items-list {
   margin: 50px;
   display: flex;
+  width: 100%;
 
   @media @tablets {
     flex-wrap: wrap;
