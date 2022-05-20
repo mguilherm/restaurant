@@ -1,10 +1,15 @@
 <template>
   <div class="item">
+  <div class="item--container">
     <div class="item--tag" v-if="item.offer">OFERTA</div>
     <img class="item--img" src="../assets/images/burger.png" alt="">
-    <h2 class="item--name">{{item.name}}</h2>
-    <p class="item--description">{{item.description}}</p>
-    <p class="item--price">{{item.price | currency}}</p>
+  </div>
+    <div class="content"> 
+      <h2 class="item--name">{{item.name}}</h2>
+      <p class="item--description">{{item.description}}</p>
+      <p class="item--price">{{item.price | currency}}</p>
+    </div>
+    
   </div>
 </template>
 
@@ -67,7 +72,40 @@
       font-size: 12px;
       padding: 3px 8px;
     }
+    @media @tablets{
+      width: 100%;
+      height: fit-content;
+      border: 1px solid @light-grey;
+      display: flex;
+      margin: 10px 0;
+      padding: 5px 10px;
 
+      &--img {
+        height: 70px;
+        order: 0;
+        margin: 0 0 10px 0;
+      }
+
+      &--price {
+        margin: 0 auto;
+        text-align: right;
+      }
+
+      &--tag{
+        position: static;
+        order: 1;
+        width: fit-content;
+      }
+
+      &--container{
+        display: flex;
+        flex-direction: column;
+        margin-right: 10px;
+        align-items: center;
+        justify-content: center;
+      
+      }
+    }
     
   }
 </style>
