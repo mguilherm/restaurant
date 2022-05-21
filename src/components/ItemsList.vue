@@ -40,7 +40,7 @@ export default {
           this.itemsList = response.data;
           this.isLoading = false;
         });
-      }, 500)
+      }, 1000)
      
     },
   },
@@ -55,9 +55,10 @@ export default {
 <style lang="less" scoped>
 .items-list {
   margin: 50px;
-  display: flex;
   width: 100%;
-
+  display: flex;
+  flex-wrap: wrap;
+  
   @media @tablets {
     flex-wrap: wrap;
     margin: 0;

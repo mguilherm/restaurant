@@ -2,6 +2,7 @@
   <div class="home">
     <CategoryMenu />
     <ItemsList />
+    <CartMenu />
   </div>
 </template>
 
@@ -9,13 +10,15 @@
 
 import CategoryMenu from '@/components/CategoryMenu.vue';
 import ItemsList from '@/components/ItemsList.vue';
+import CartMenu from '@/components/CartMenu';
 
 
 export default {
   name: 'HomeView',
   components: {
     CategoryMenu,
-    ItemsList
+    ItemsList,
+    CartMenu
   }
   
 }
