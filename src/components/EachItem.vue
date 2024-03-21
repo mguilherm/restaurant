@@ -92,6 +92,7 @@ export default {
     justify-content: space-between;
     margin-top: 10px;
   }
+
   @media @tablets {
     width: 100%;
     height: fit-content;
@@ -99,7 +100,7 @@ export default {
     display: flex;
     flex-direction: row;
     margin: 10px 0;
-    padding: 10px 20px;
+    padding: 5px 10px;
 
     &--img {
       width: 86px;
