@@ -100,7 +100,7 @@ export default {
     display: flex;
     flex-direction: row;
     margin: 10px 0;
-    padding: 5px 10px;
+    padding: 10px 20px;
 
     &--img {
       width: 86px;

@@ -1,5 +1,6 @@
 <template>
   <div class='item'>
+    {{ item.quantity }}
     <div class="item--img-container">
       <img class="item--img" :src="imgPath" >
     </div>
@@ -60,12 +61,15 @@
 
     &--observation{
       color: @dark-grey;
+      font-weight: 500;
+      font-size: 12px;
+      text-decoration: underline;
     }
 
     &--price{
       font-weight: 600;
       font-size: 18px;
-      line-weight: 27px;
+      line-height: 27px;
       color: @yellow;
     }
 
