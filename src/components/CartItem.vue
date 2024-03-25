@@ -1,81 +1,121 @@
 <template>
-  <div class='item'>
-    {{ item.quantity }}
+  <div class="item">
+    <div class="item--quantity">
+      <button
+        class="buttons"
+        @click="decreaseQuantity(item.id)"
+        :disabled="item.quantity === 0"
+      > - </button>
+      <span class="number"> {{ item.quantity }} </span>
+      <button class="buttons" @click="increaseQuantity(item.id)"> + </button>
+    </div>
     <div class="item--img-container">
-      <img class="item--img" :src="imgPath" >
+      <img class="item--img" :src="imgPath" />
     </div>
     <div class="content">
-      <h3 class="item--name">{{item.name}}</h3>
+      <h3 class="item--name">{{ item.name }}</h3>
       <a class="item--observation" href="">Adicionar Observação</a>
     </div>
-    <p class="item--price">{{item.price | currency}}</p>
+    <p class="item--price">{{ item.price | currency }}</p>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'CartItem',
-    props: {
-      item: {}
+import { mapActions } from "vuex";
+
+export default {
+  name: "CartItem",
+  props: {
+    item: {},
+  },
+  computed: {
+    imgPath() {
+      return require(`../assets/images/${this.item.id}.png`);
     },
-    computed: {
-     
-      imgPath(){
-        return require(`../assets/images/${this.item.id}.png`)
-      }
+  },
+  methods: {
+    ...mapActions(["increaseQuantity", "decreaseQuantity"]),
+  },
+  filters: {
+    currency(value) {
+      return `R$ ${value.toLocaleString("pt-br", {
+        minimumFractionDigits: 2,
+      })}`;
     },
-    filters: {
-      currency(value){
-        return `R$ ${value.toLocaleString('pt-br', {minimumFractionDigits: 2})}`
-      }
-    }
-  }
+  },
+};
 </script>
 
 <style lang="less" scoped>
-  .item{
+.item {
+  display: flex;
+  padding: 20px 0;
+  border-bottom: 1px solid @light-grey;
+
+  &--quantity {
     display: flex;
-    padding: 20px 0;
-    border-bottom: 1px solid @light-grey;
+    align-items: center;
+    padding-right: 40px;
 
-    &--img-container{
-      border-radius: 8px;
-      background: @light-yellow;
-      width: 81px;
-      height: 66px;
-      display: flex;
-      align-items: center;
-    }
-
-    &--img{
-      width: 65px;
-      display: block;
-      margin: auto;
-    }
-
-    &--name{
-     font-size: 18px;
-     font-weight: 600;
-     margin: 0;
-    }
-
-    &--observation{
-      color: @dark-grey;
+    .number {
       font-weight: 500;
-      font-size: 12px;
-      text-decoration: underline;
+      font-size: 18px;
+      color: @yellow;
+      width: 28px;
+      text-align: center;
     }
 
-    &--price{
+    .buttons {
+      cursor: pointer;
       font-weight: 600;
       font-size: 18px;
-      line-height: 27px;
-      color: @yellow;
-    }
+      border: none;
+      background: none;
 
-    .content{
-      flex-grow: 1;
-      padding: 0 20px;
+      &:focus{
+        outline: 0;
+      }
     }
   }
+
+  &--img-container {
+    border-radius: 8px;
+    background: @light-yellow;
+    width: 81px;
+    height: 66px;
+    display: flex;
+    align-items: center;
+  }
+
+  &--img {
+    width: 65px;
+    display: block;
+    margin: auto;
+  }
+
+  &--name {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  &--observation {
+    color: @dark-grey;
+    font-weight: 500;
+    font-size: 12px;
+    text-decoration: underline;
+  }
+
+  &--price {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    color: @yellow;
+  }
+
+  .content {
+    flex-grow: 1;
+    padding: 0 20px;
+  }
+}
 </style>
