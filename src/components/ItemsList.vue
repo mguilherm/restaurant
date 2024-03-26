@@ -22,7 +22,9 @@ export default {
       isLoading: false
     };
   },
-  created() {},
+  created() {
+    this.getItemsList();
+  },
   computed: {
     selectedCategory: {
       get() {
@@ -58,6 +60,7 @@ export default {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
   
   @media @tablets {
     flex-wrap: wrap;
