@@ -3,7 +3,9 @@
   <router-link to="/" class="cart--go-back" v-if="isMobile()"> ⬅ Voltar </router-link>
   <h2 class="cart--title">Seu pedido</h2>
   <p v-if="hasItems">Seu carrinho ainda está vazio!</p>
-  <CartItem v-for= "item in cartList" :key="item.id" :item="item"/> 
+  <transition-group name="list">
+    <CartItem v-for= "item in cartList" :key="item.id" :item="item"/> 
+  </transition-group>
   <div class="cart--total" v-if="!hasItems">
     <span>Total: </span>
     <span class="price">{{ getCartTotal | currency }}</span>
@@ -72,6 +74,15 @@ import Mixin from '@/mixins/mixins';
         color: @yellow;
         padding-left: 10px;
       }
+    }
+
+    .list-enter-active, .list-leave-active {
+      transition: all 1s;
+    }
+
+    .list-enter, .list-leave-to{
+      opacity: 0;
+      transform: translateX(-30px);
     }
   }
 

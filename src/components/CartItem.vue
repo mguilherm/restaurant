@@ -1,14 +1,6 @@
 <template>
   <div class="item">
-    <div class="item--quantity">
-      <button
-        class="buttons"
-        @click="decreaseQuantity(item.id)"
-        :disabled="item.quantity === 0"
-      > - </button>
-      <span class="number"> {{ item.quantity }} </span>
-      <button class="buttons" @click="increaseQuantity(item.id)"> + </button>
-    </div>
+    <QuantityButtons :item="item"/>
     <div class="item--img-container">
       <img class="item--img" :src="imgPath" />
     </div>
@@ -22,8 +14,13 @@
 
 <script>
 import { mapActions } from "vuex";
+import QuantityButtons from '../components/QuantityButtons.vue';
+
 export default {
   name: "CartItem",
+  components: {
+    QuantityButtons,
+  },
   props: {
     item: {},
   },
@@ -50,32 +47,6 @@ export default {
   display: flex;
   padding: 20px 0;
   border-bottom: 1px solid @light-grey;
-
-  &--quantity {
-    display: flex;
-    align-items: center;
-    padding-right: 40px;
-
-    .number {
-      font-weight: 500;
-      font-size: 18px;
-      color: @yellow;
-      width: 28px;
-      text-align: center;
-    }
-
-    .buttons {
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 18px;
-      border: none;
-      background: none;
-
-      &:focus{
-        outline: 0;
-      }
-    }
-  }
 
   &--img-container {
     border-radius: 8px;
@@ -128,13 +99,6 @@ export default {
 
     .content{
       order: 2;
-    }
-
-    &--quantity{
-      order: 3;
-      padding: 0;
-      width: 81px;
-      justify-content: center;
     }
 
     &--price{
