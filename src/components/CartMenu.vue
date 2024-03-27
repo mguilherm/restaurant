@@ -10,19 +10,29 @@
     <span>Total: </span>
     <span class="price">{{ getCartTotal | currency }}</span>
   </div>
+  <ModalBox :show="showModal" @on-modal-close="showModal = false">
+    Teste
+  </ModalBox>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import CartItem from '@/components/CartItem';
+import ModalBox from '@/components/ModalBox';
 import Mixin from '@/mixins/mixins';
 
   export default {
     name: 'CartMenu',
     mixins: [Mixin],
     components: {
-      CartItem
+      CartItem,
+      ModalBox
+    },
+    data(){
+      return {
+        showModal: false,
+      }
     },
     computed: {
       ...mapGetters([
