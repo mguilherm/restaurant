@@ -1,6 +1,6 @@
 <template>
   <div class="modal" v-if="show">
-    <div class="modal--content">
+    <div class="modal--box">
       <div class="modal--close" v-html="closeIcon" @click="onCloseButtonClick"></div>
       <slot></slot>
     </div>
@@ -39,7 +39,7 @@
     left: 0;
     background: rgba(0,0,0,0.4);
 
-    &--content{
+    &--box{
       width: 600px;
       padding: 30px;
       background: white;

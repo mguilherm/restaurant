@@ -9,14 +9,25 @@
     </button>
     <span class="number"> {{ item.quantity }} </span>
     <button class="buttons" @click="onIncreaseButtonClick">+</button>
+    <ModalBox :show="showModal" @on-modal-close="showModal = false">
+      <div class="modal--content">
+        <h2>Deseja remover este item do Carrinho?</h2>
+        <button class="primary-button" @click="onCancelButtonClick">Cancelar</button>
+        <button class="secondary-button" @click="onRemoveButtonClick">Sim, Remover</button>
+      </div>
+    </ModalBox>
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+import ModalBox from "@/components/ModalBox";
 
 export default {
   name: "QuantityButtons",
+  components:{
+    ModalBox,
+  },
   props: {
     item: {},
     useStore: {
@@ -24,11 +35,18 @@ export default {
       default: true,
     },
   },
+  data(){
+    return {
+      showModal: false
+    }
+  },
   methods: {
     ...mapActions(["increaseQuantity", "decreaseQuantity"]),
     onDecreaseButtonClick() {
       if (this.useStore) {
         this.decreaseQuantity(this.item.id);
+
+        if (!this.item.quantity) this.showModal = true;
         return;
       }
       this.$emit("decrease");
@@ -40,6 +58,17 @@ export default {
       }
       this.$emit("increase");
     },
+    onCancelButtonClick(){
+      this.onIncreaseButtonClick();
+      this.showModal = false;
+    },
+    onRemoveButtonClick(){
+      this.showModal = false;
+      //executing this after DOM manipulating $nextTick
+      this.$nextTick(()=> {
+        this.$store.dispatch('removeFromCart', this.item.id);
+      })
+    }
   },
 };
 </script>
@@ -67,6 +96,14 @@ export default {
 
     &:focus {
       outline: 0;
+    }
+  }
+
+  .modal--content{
+    text-align: center;
+
+    button + button{
+      margin-left: 10px;
     }
   }
 }
