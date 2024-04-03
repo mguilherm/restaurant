@@ -58,14 +58,14 @@ import Mixin from '@/mixins/mixins';
 <style lang="less" scoped>
   .cart {
     background: white;
-    width: 643px;
-    min-width: 643px;
+    width: 580px;
+    min-width: 580px;
     padding: 50px;
 
     &--title{
       font-weight: 600;
       font-size: 24px;
-      margin-top: 50px;
+      margin-top: 20px;
     }
 
     &--go-back{

@@ -58,6 +58,7 @@ export default {
   padding: 20px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 
   &--img {
     display: block;
