@@ -56,11 +56,13 @@ export default {
 
 <style lang="less" scoped>
 .items-list {
-  margin: 50px;
+  margin: 30px 30px 0;
   width: 100%;
+  height: 95vh;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
+  overflow: scroll;
   
   @media @tablets {
     flex-wrap: wrap;

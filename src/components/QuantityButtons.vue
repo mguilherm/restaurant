@@ -9,7 +9,7 @@
     </button>
     <span class="number"> {{ item.quantity }} </span>
     <button class="buttons" @click="onIncreaseButtonClick">+</button>
-    <ModalBox :show="showModal" @on-modal-close="showModal = false">
+    <ModalBox :show="showModal" @on-modal-close="onCancelButtonClick">
       <div class="modal--content">
         <h2>Deseja remover este item do Carrinho?</h2>
         <button class="primary-button" @click="onCancelButtonClick">Cancelar</button>
@@ -114,6 +114,12 @@ export default {
     padding: 0;
     width: 81px;
     justify-content: center;
+  }
+
+  .modal--content{
+    h2{
+      font-size: 18px;
+    }
   }
 }
 </style>
