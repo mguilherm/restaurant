@@ -55,4 +55,15 @@
       text-align: right;
     }
   }
+
+  @media @tablets{
+    .modal{
+
+      &--box{
+        width: 90%;
+        padding: 15px;
+
+      }
+    }
+  }
 </style>

@@ -4,22 +4,18 @@
   <h2 class="cart--title">Seu pedido</h2>
   <p v-if="hasItems">Seu carrinho ainda está vazio!</p>
   <transition-group name="list">
-    <CartItem v-for= "item in cartList" :key="item.id" :item="item"/> 
+    <CartItem v-for= "item in cartList" :key="item.id" :item="item" @saveObservations="saveObservations"/> 
   </transition-group>
   <div class="cart--total" v-if="!hasItems">
     <span>Total: </span>
     <span class="price">{{ getCartTotal | currency }}</span>
   </div>
-  <ModalBox :show="showModal" @on-modal-close="showModal = false">
-    Teste
-  </ModalBox>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import CartItem from '@/components/CartItem';
-import ModalBox from '@/components/ModalBox';
 import Mixin from '@/mixins/mixins';
 
   export default {
@@ -27,7 +23,6 @@ import Mixin from '@/mixins/mixins';
     mixins: [Mixin],
     components: {
       CartItem,
-      ModalBox
     },
     data(){
       return {
@@ -36,13 +31,19 @@ import Mixin from '@/mixins/mixins';
     },
     computed: {
       ...mapGetters([
-        'getCartTotal'
+        'getCartTotal',
       ]),
       cartList(){
         return this.$store.state.cartList;
       },
       hasItems(){
         return !this.cartList.length;
+      },
+    },
+    methods:{
+      saveObservations(item){
+        this.$store.dispatch('addObservations', item);
+        this.cartList;
       }
     },
     filters: {
