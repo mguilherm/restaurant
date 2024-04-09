@@ -19,7 +19,7 @@
       <span>Total: </span>
       <span class="price">{{ getCartTotal | currency }}</span>
     </div>
-    <button v-if="!hasItems" class="primary-button payment-button">Finalizar Pagamento</button>
+    <button v-if="!hasItems" @click="goToPaymentView" class="primary-button payment-button">Finalizar Pagamento</button>
   </div>
 </template>
 
@@ -53,6 +53,9 @@ export default {
       this.$store.dispatch("addObservations", item);
       this.cartList;
     },
+    goToPaymentView(){
+      this.$router.push({name: 'Payment'});
+    }
   },
   filters: {
     currency(value) {
@@ -69,7 +72,7 @@ export default {
   background: white;
   width: 580px;
   min-width: 580px;
-  height: 90vh;
+  height: 100vh;
   padding: 50px;
   display: flex;
   flex-direction: column;
@@ -108,7 +111,7 @@ export default {
 
   .payment-button{
     width: 400px;
-    margin: 20px auto;
+    margin: 20px auto 0;
   }
 
   .list-enter-active,
