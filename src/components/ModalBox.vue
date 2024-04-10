@@ -53,6 +53,7 @@
 
     &--close{
       text-align: right;
+      cursor: pointer;
     }
   }
 
