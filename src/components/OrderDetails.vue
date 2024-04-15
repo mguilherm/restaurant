@@ -35,15 +35,35 @@
         <p class="section-title">Endereço</p>
         <div class="delivery-type">
           <div class="radio-options">
-            <input type="radio" name="delivery-type" id="store" checked />
+            <input
+              type="radio"
+              name="delivery-type"
+              id="store"
+              value="store"
+              checked
+              v-model="deliveryType"
+            />
             <label for="store">Retirar na Loja</label>
           </div>
           <div class="radio-options">
-            <input type="radio" name="delivery-type" id="delivery" />
+            <input
+              type="radio"
+              name="delivery-type"
+              id="delivery"
+              value="delivery"
+              v-model="deliveryType"
+            />
             <label for="delivery">Delivery</label>
           </div>
         </div>
-        <a @click="onShowAdressModal">Adicionar Endereço</a>
+
+        <div class="address-card" v-if="hasAddressInfo && isDeliveryType && savedAddress">
+          <p>{{ formData.street.value }}, {{ formData.number.value }}</p>
+          <p>{{formData.city.value}} - {{ formData.cep.value }}</p>
+        </div>
+        <a @click="onShowAdressModal" v-if="isDeliveryType">{{
+          addressButtonLabel
+        }}</a>
       </div>
     </form>
     <button class="primary-button" @click="orderItems">Concluir Pedido</button>
@@ -104,8 +124,12 @@
             </p>
           </div>
         </div>
-        <button class="primary-button">Adicionar</button>
-        <button class="secondary-button" @click="hideAdressModal">Cancelar</button>
+        <button class="primary-button" @click="validateAddressForm">
+          Adicionar
+        </button>
+        <button class="secondary-button" @click="hideAdressModal">
+          Cancelar
+        </button>
       </div>
     </Modal>
   </div>
@@ -147,7 +171,7 @@ export default {
           label: "CEP *",
           valid: true,
           isValid: () => {
-            this.formData.cep.valid = this.formData.cep.value.length;
+            this.formData.cep.valid = !!this.formData.cep.value.length;
           },
         },
         city: {
@@ -157,7 +181,7 @@ export default {
           label: "Cidade *",
           valid: true,
           isValid: () => {
-            this.formData.city.valid = this.formData.city.value.length;
+            this.formData.city.valid = !!this.formData.city.value.length;
           },
         },
         street: {
@@ -167,7 +191,7 @@ export default {
           label: "Rua *",
           valid: true,
           isValid: () => {
-            this.formData.street.valid = this.formData.street.value.length;
+            this.formData.street.valid = !!this.formData.street.value.length;
           },
         },
         number: {
@@ -177,16 +201,48 @@ export default {
           label: "Número*",
           valid: true,
           isValid: () => {
-            this.formData.number.valid = this.formData.number.value.length;
+            this.formData.number.valid = !!this.formData.number.value.length;
           },
         },
       },
       showAdressModal: false,
+      deliveryType: "store",
+      savedAddress: false,
     };
+  },
+  computed: {
+    isAddressFormValid() {
+      let isValid = true;
+      isValid &= this.formData.cep.valid;
+      isValid &= this.formData.city.valid;
+      isValid &= this.formData.street.valid;
+      isValid &= this.formData.number.valid;
+      return isValid;
+    },
+    isDeliveryType() {
+      return this.deliveryType === "delivery";
+    },
+    hasAddressInfo() {
+      return (
+        this.formData.cep.value &&
+        this.formData.city.value &&
+        this.formData.street.value &&
+        this.formData.number.value
+      );
+    },
+    addressButtonLabel() {
+      return this.hasAddressInfo ? "Editar Endereço" : "Adicionar Endereço";
+    },
   },
   methods: {
     triggerValidations() {
       this.formData.name.isValid();
+    },
+    triggerAddressFormValidations() {
+      this.formData.cep.isValid();
+      this.formData.city.isValid();
+      this.formData.street.isValid();
+      this.formData.number.isValid();
     },
     orderItems() {
       this.triggerValidations();
@@ -195,6 +251,12 @@ export default {
       this.showAdressModal = true;
     },
     hideAdressModal() {
+      this.showAdressModal = false;
+    },
+    validateAddressForm() {
+      this.triggerAddressFormValidations();
+      if (!this.isAddressFormValid) return;
+      this.savedAddress = true;
       this.showAdressModal = false;
     },
   },
@@ -212,7 +274,7 @@ export default {
   .input-field {
     display: flex;
     flex-direction: column;
-    
+
     label {
       font-weight: 500;
       font-size: 16px;
@@ -224,19 +286,26 @@ export default {
     }
   }
 
-  .address-container{
+  .address-container {
     display: flex;
     margin-top: 15px;
 
-    .input-field{
+    .input-field {
       margin: 0;
       width: 100%;
 
-      & + .input-field{
+      & + .input-field {
         width: 30%;
         margin-left: 15px;
       }
     }
+  }
+
+  .error-message {
+    font-size: 12px;
+    color: @error-color;
+    margin-top: 0;
+    font-weight: bold;
   }
 
   form {
@@ -250,13 +319,6 @@ export default {
       margin-bottom: 20px;
     }
 
-    .error-message {
-      font-size: 12px;
-      color: @error-color;
-      margin-top: 0;
-      font-weight: bold;
-    }
-
     .address {
       .delivery-type {
         display: flex;
@@ -268,6 +330,23 @@ export default {
         font-size: 12px;
         text-decoration: underline;
         cursor: pointer;
+        margin: 15px 0;
+        display: block;
+        width: fit-content;
+      }
+
+      .address-card{
+        border-radius: 8px;
+        border: 1px solid @dark-grey;
+        padding: 10px 20px;
+        margin: 5px 0;
+        width: fit-content;
+        p{
+          font-weight: normal;
+          font-size: 14px;
+          color: @dark-grey;
+          margin: 0;
+        }
       }
     }
 
@@ -283,15 +362,14 @@ export default {
         margin: 0;
       }
     }
-
   }
 
-  .modal-content{
-    button{
+  .modal-content {
+    button {
       text-align: center;
       margin: 30px auto;
 
-      & + button{
+      & + button {
         margin-left: 15px;
       }
     }
