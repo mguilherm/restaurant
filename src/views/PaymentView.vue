@@ -28,14 +28,23 @@ export default {
   &--content {
     flex-grow: 1;
     padding: 20px;
+
+    .payment--go-back {
+      padding: 50px 20px;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      color: black;
+    }
+  }
+
+  @media @tablets{
+    .payment--go-back{
+      padding: 0;
+    }
   }
 }
 
-.payment--go-back {
-  padding: 50px 20px;
-  font-size: 18px;
-  font-weight: 600;
-  text-decoration: none;
-  color: black;
-}
+
+
 </style>
