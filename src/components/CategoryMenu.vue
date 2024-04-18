@@ -43,12 +43,12 @@ export default {
     };
   },
   mounted() {
-    this.onCategoryClick('pizzas');
+    this.onCategoryClick("pizzas");
   },
   methods: {
     onCategoryClick(id) {
       this.selectedCategory = id;
-      this.$store.dispatch('changeCategory', id);
+      this.$store.dispatch("changeCategory", id);
     },
     isActive(id) {
       return this.selectedCategory === id;
@@ -79,29 +79,29 @@ export default {
       align-items: center;
       height: 100px;
 
-      p{
+      p {
         margin-bottom: 0px;
         font-weight: 500;
         font-size: 14px;
         color: @dark-grey;
       }
 
-      svg{
-          path{
-            fill: @dark-grey;
-          }
+      svg {
+        path {
+          fill: @dark-grey;
         }
+      }
 
-      &.active{
+      &.active {
         background: @yellow;
         border-radius: 8px;
 
-        p{
+        p {
           color: black;
         }
 
-        svg{
-          path{
+        svg {
+          path {
             fill: black;
           }
         }
@@ -109,23 +109,32 @@ export default {
     }
   }
 
-  @media @tablets {
+  @media @small-desktops {
     width: 100%;
+    max-width: 800px;
+    margin: auto;
     height: fit-content;
+    position: sticky;
+    top: 0;
+    z-index: 3;
 
-  ul{
-    display: flex;
-    justify-content: space-between;
-    overflow: scroll;
-    margin: 20px;
+    ul {
+      display: flex;
+      justify-content: space-around;
+      overflow: scroll;
+      margin: 20px;
 
-    li{
-      padding: 0 1rem;
-      min-width: 78px;
+      li {
+        padding: 0 1rem;
+        min-width: 78px;
+      }
     }
   }
 
+  @media @smartphones{
+    ul {
+      justify-content: unset;
+    }
   }
-
 }
 </style>

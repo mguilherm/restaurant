@@ -1,6 +1,6 @@
 <template>
   <div class="add-cart">
-    <router-link to="/" class="add-cart--go-back" v-if="isMobile()">
+    <router-link to="/" class="add-cart--go-back">
       ⬅ Voltar
     </router-link>
     <EachItem :item="item" class="add-cart--item" />
@@ -14,7 +14,7 @@
       />
     </div>
     <p class="add-cart--observations">Observações</p>
-    <textarea v-model="item.observations" rows="6"></textarea>
+    <textarea v-model="item.observations" rows="5"></textarea>
     <button class="primary-button" @click="onAddToCartButtonClick">
       Adicionar ao Carrinho
     </button>
@@ -45,6 +45,11 @@ export default {
       return this.$store.state.selectedCategory;
     },
   },
+  created(){
+    if(this.isDesktop()){
+      this.$router.push({name: 'Home'});
+    }
+  },
   mounted() {
     axios
       .get(`http://localhost:3000/${this.selectedCategory}/${this.id}`)
@@ -61,7 +66,7 @@ export default {
     },
     onAddToCartButtonClick(){
       this.$store.dispatch('addToCart', this.item);
-      this.$router.push({name: 'home'});
+      this.$router.push({name: 'Home'});
     }
   },
 };
@@ -69,6 +74,8 @@ export default {
 
 <style lang="less" scoped>
 .add-cart {
+  max-width: 600px;
+  margin: auto;
   padding: 50px 20px;
 
   &--go-back {
@@ -79,7 +86,7 @@ export default {
   }
 
   &--item {
-    margin-top: 20px;
+    margin: 20px auto 0;
   }
 
   &--container {
@@ -108,11 +115,26 @@ export default {
   }
 
   button{
+    display: block;
     width: calc(100% - 40px);
+    max-width: 300px;
+    margin: 30px auto;
+  }
+
+}
+@media @small-desktops{
+  .add-cart{
+    button{
+      max-width: unset;
+    }
+  }
+}
+
+@media @smartphones{
+  button{
     position: fixed;
-    bottom: 30px;
-    left: 20px;
-    right: 20px;
+    bottom: 20px;
+    width: calc(100% - 40px);
   }
 }
 </style>

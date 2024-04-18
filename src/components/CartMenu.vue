@@ -1,8 +1,6 @@
 <template>
   <div class="cart">
-    <router-link to="/" class="cart--go-back" v-if="isMobile()">
-      ⬅ Voltar
-    </router-link>
+    <router-link to="/" class="cart--go-back"> ⬅ Voltar </router-link>
     <div class="cart--content">
       <h2 class="cart--title">Seu pedido</h2>
       <p v-if="hasItems">Seu carrinho ainda está vazio!</p>
@@ -19,7 +17,13 @@
       <span>Total: </span>
       <span class="price">{{ getCartTotal | currency }}</span>
     </div>
-    <button v-if="!hasItems" @click="goToPaymentView" class="primary-button payment-button">Finalizar Pagamento</button>
+    <button
+      v-if="!hasItems && !isPaymentScreen"
+      @click="goToPaymentView"
+      class="primary-button payment-button"
+    >
+      Finalizar Pagamento
+    </button>
   </div>
 </template>
 
@@ -47,15 +51,18 @@ export default {
     hasItems() {
       return !this.cartList.length;
     },
+    isPaymentScreen(){
+      return this.$route.name === 'Payment';
+    }
   },
   methods: {
     saveObservations(item) {
       this.$store.dispatch("addObservations", item);
       this.cartList;
     },
-    goToPaymentView(){
-      this.$router.push({name: 'Payment'});
-    }
+    goToPaymentView() {
+      this.$router.push({ name: "Payment" });
+    },
   },
   filters: {
     currency(value) {
@@ -84,16 +91,14 @@ export default {
     height: 30px;
   }
 
-  &--content{
+  &--content {
     flex-grow: 1;
     height: 75vh;
     overflow: scroll;
   }
 
   &--go-back {
-    font-size: 18px;
-    text-decoration: none;
-    color: black;
+    display: none;
   }
 
   &--total {
@@ -106,10 +111,9 @@ export default {
       color: @yellow;
       padding-left: 10px;
     }
-
   }
 
-  .payment-button{
+  .payment-button {
     width: 400px;
     margin: 20px auto 0;
   }
@@ -125,21 +129,29 @@ export default {
     transform: translateX(-30px);
   }
 }
-
-@media @tablets {
+@media @small-desktops {
   .cart {
     width: 100%;
+    max-width: 800px;
+    margin: auto;
     min-width: unset;
     padding: 50px 20px 20px;
 
-    &--content{
-    height: 70vh;
-  }
+    &--content {
+      height: 70vh;
+    }
 
-  .payment-button{
-    width: 100%;
-  }
-  }
+    &--go-back {
+      display: block;
+      font-size: 18px;
+      text-decoration: none;
+      color: black;
+    }
 
+    .payment-button {
+      width: 100%;
+    }
+  }
 }
+
 </style>

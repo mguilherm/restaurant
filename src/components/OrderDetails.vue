@@ -392,10 +392,10 @@ export default {
 <style lang="less" scoped>
 .order {
   width: 90%;
-  margin: 30px auto;
+  margin: 20px auto;
   background: white;
   border-radius: 8px;
-  padding: 30px 50px;
+  padding: 20px 50px 30px;
 
   .input-field {
     display: flex;
@@ -525,10 +525,11 @@ export default {
     }
   }
 
-  @media @tablets {
+  @media @small-desktops {
     width: 100%;
-    padding: 0;
-    margin: 0;
+    max-width: 800px;
+    padding: 20px;
+    margin: 0 auto;
 
     .modal-content {
       button + button {
@@ -541,6 +542,10 @@ export default {
         margin-left: 5px;
       }
     }
+  }
+
+  @media @smartphones{
+    padding: 0;
   }
 }
 </style>

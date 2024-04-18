@@ -2,15 +2,15 @@
   <div class="payment">
     <div class="payment--content">
       <router-link to="/" class="payment--go-back"> ⬅ Voltar </router-link>
-      <OrderDetails/>
+      <OrderDetails />
     </div>
-    <CartMenu v-if="isDesktop()" />
+    <CartMenu class="cart-menu" />
   </div>
 </template>
 
 <script>
 import CartMenu from "@/components/CartMenu.vue";
-import OrderDetails from "@/components/OrderDetails.vue"
+import OrderDetails from "@/components/OrderDetails.vue";
 import Mixin from "@/mixins/mixins";
 export default {
   components: {
@@ -27,7 +27,7 @@ export default {
 
   &--content {
     flex-grow: 1;
-    padding: 20px;
+    padding-top: 10px;
 
     .payment--go-back {
       padding: 50px 20px;
@@ -38,13 +38,20 @@ export default {
     }
   }
 
-  @media @tablets{
-    .payment--go-back{
-      padding: 0;
+  @media @small-desktops {
+    .payment {
+      &--content {
+        padding: 20px;
+      }
+
+      &--go-back {
+        padding: 0;
+      }
+    }
+
+    .cart-menu {
+      display: none;
     }
   }
 }
-
-
-
 </style>
