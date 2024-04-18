@@ -59,6 +59,7 @@ export default {
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  box-shadow: rgba(99, 99, 99, 0.05) 0px 2px 8px 0px;
 
   &--img {
     display: block;

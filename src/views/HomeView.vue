@@ -47,13 +47,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-
+      
       width: fit-content;
       height: 42px;
       margin: 20px 20px 20px auto;
@@ -62,7 +56,6 @@ export default {
       background-color: @pink;
       text-decoration: none;
       border-radius: 8px;
-      z-index: 3;
 
       &::after {
         content: "Seus Pedidos";
@@ -79,8 +72,6 @@ export default {
       width: 100%;
       height: 50px;
       margin: 0;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
     }
   }
 }

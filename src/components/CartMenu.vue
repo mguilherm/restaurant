@@ -77,8 +77,8 @@ export default {
 <style lang="less" scoped>
 .cart {
   background: white;
-  width: 520px;
-  min-width: 520px;
+  width: 580px;
+  min-width: 580px;
   height: 100vh;
   padding: 30px;
   display: flex;

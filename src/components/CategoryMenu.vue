@@ -117,6 +117,7 @@ export default {
     position: sticky;
     top: 0;
     z-index: 3;
+    box-shadow: rgba(99, 99, 99, 0.08) 0px 2px 8px 0px;
 
     ul {
       display: flex;
