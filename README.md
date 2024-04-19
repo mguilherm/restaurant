@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-O **Restaurante Digital** é um aplicativo desenvolvido em Vue.js. Ele foi criado para gerenciar pedidos de restaurantes de forma simples e prática. Seu desenvolvimento permite o gerenciamento de pedidos, inserção de observações, carrinhos com os itens, e seleção até mesmo de endereço para entrega do pedido ou retirada em take-out. 
+O **Restaurante Digital** é um aplicativo desenvolvido em Vue.js. Ele foi criado para gerenciar pedidos de restaurantes de forma simples e prática. Seu desenvolvimento permite o gerenciamento de pedidos, inserção de observações, manipulação de carrinho com os itens, e seleção até mesmo de endereço para entrega do pedido ou retirada em take-out. O projeto tem como base o projeto de finalização do curso FrontStart de Isadora Stangarlin.
 
 ## Tecnologias Utilizadas
 
@@ -81,7 +81,7 @@ O aplicativo é totalmente resposivo, podendo ser utilizado em suas versões par
 
 ### Tablet
 
-![Tablet](src/assets/mockups/tablet.png)
+![Tablet](src/assets/mockups/tablet2.png)
 
 ### Mobile
 
@@ -102,4 +102,5 @@ Com estas instruções, você deverá ser capaz de clonar o repositório, instal
 - Implementação de método de pagamento online;
 - Login para usuários com histórico de compras, itens favoritos e endereço salvo;
 
-
+Feito por Marcos Guilherme Silva, 2024. 
+Todos os direitos reservados.
